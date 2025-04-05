@@ -1,0 +1,53 @@
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    border-radius: 3px 3px 0 0;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.btn-group {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-group .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .btn-group {
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .table th,
+    .table td {
+        white-space: nowrap;
+    }
+}

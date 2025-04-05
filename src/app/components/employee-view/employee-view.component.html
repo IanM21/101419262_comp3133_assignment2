@@ -1,0 +1,82 @@
+<div class="card">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Employee Details</h4>
+        <a routerLink="/employees" class="btn btn-light">Back to List</a>
+    </div>
+
+    <div class="card-body">
+        <!-- Alert Messages -->
+        <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+
+        <!-- Loading Spinner -->
+        <div class="text-center my-4" *ngIf="loading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Employee Details -->
+        <div *ngIf="!loading && employee" class="employee-details">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="profile-image-container">
+                        <img [src]="employee.employee_photo || 'https://imgs.search.brave.com/mDztPWayQWWrIPAy2Hm_FNfDjDVgayj73RTnUIZ15L0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAyLzE1Lzg0LzQz/LzM2MF9GXzIxNTg0/NDMyNV90dFg5WWlJ/SXllYVI3TmU2RWFM/TGpNQW15NEd2UEM2/OS5qcGc'"
+                            alt="{{ employee.first_name }} {{ employee.last_name }}" class="profile-image"
+                            onerror="this.src='https://imgs.search.brave.com/mDztPWayQWWrIPAy2Hm_FNfDjDVgayj73RTnUIZ15L0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAyLzE1Lzg0LzQz/LzM2MF9GXzIxNTg0/NDMyNV90dFg5WWlJ/SXllYVI3TmU2RWFM/TGpNQW15NEd2UEM2/OS5qcGc'">
+                    </div>
+                </div>
+ 
+                <div class="col-md-8">
+                    <h2 class="employee-name">{{ employee.first_name }} {{ employee.last_name }}</h2>
+                    <h5 class="text-muted mb-4">{{ employee.designation }} - {{ employee.department }}</h5>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Email:</span>
+                            <span class="info-value">{{ employee.email }}</span>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">Gender:</span>
+                            <span class="info-value">{{ employee.gender || 'Not specified' }}</span>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">Salary:</span>
+                            <span class="info-value">${{ employee.salary | number:'1.2-2' }}</span>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">Date of Joining:</span>
+                            <span class="info-value">{{ employee.date_of_joining | date:'mediumDate' }}</span>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">Employee Since:</span>
+                            <span class="info-value">{{ employee.created_at | date:'shortDate' }}</span>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">Last Updated:</span>
+                            <span class="info-value">{{ employee.updated_at | date:'shortDate' }}</span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons mt-4">
+                        <a [routerLink]="['/employees', employee._id, 'edit']" class="btn btn-warning text-white me-2">
+                            Edit Employee
+                        </a>
+                        <button (click)="deleteEmployee()" class="btn btn-danger">
+                            Delete Employee
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Not found message -->
+        <div class="alert alert-info" *ngIf="!loading && !employee && !error">
+            Employee not found. The employee may have been deleted or you have insufficient permissions.
+        </div>
+    </div>
+</div>

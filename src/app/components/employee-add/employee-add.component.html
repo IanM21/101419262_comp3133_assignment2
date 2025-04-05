@@ -1,0 +1,125 @@
+<div class="card">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Add New Employee</h4>
+        <a routerLink="/employees" class="btn btn-light">Back to List</a>
+    </div>
+
+    <div class="card-body">
+        <!-- Alert Messages -->
+        <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+        <div class="alert alert-success" *ngIf="success">{{ success }}</div>
+
+        <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <!-- First Name -->
+                <div class="col-md-6 mb-3">
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" id="first_name" formControlName="first_name" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['first_name'].errors }"
+                        placeholder="Enter first name">
+                    <div *ngIf="submitted && f['first_name'].errors" class="invalid-feedback">
+                        <div *ngIf="f['first_name'].errors['required']">First name is required</div>
+                        <div *ngIf="f['first_name'].errors['minlength']">First name must be at least 2 characters</div>
+                    </div>
+                </div>
+
+                <!-- Last Name -->
+                <div class="col-md-6 mb-3">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" id="last_name" formControlName="last_name" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['last_name'].errors }" placeholder="Enter last name">
+                    <div *ngIf="submitted && f['last_name'].errors" class="invalid-feedback">
+                        <div *ngIf="f['last_name'].errors['required']">Last name is required</div>
+                        <div *ngIf="f['last_name'].errors['minlength']">Last name must be at least 2 characters</div>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" formControlName="email" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" placeholder="Enter email">
+                    <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                        <div *ngIf="f['email'].errors['required']">Email is required</div>
+                        <div *ngIf="f['email'].errors['email']">Enter a valid email address</div>
+                    </div>
+                </div>
+
+                <!-- Gender -->
+                <div class="col-md-6 mb-3">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select id="gender" formControlName="gender" class="form-select"
+                        [ngClass]="{ 'is-invalid': submitted && f['gender'].errors }">
+                        <option *ngFor="let option of genderOptions" [value]="option">{{ option }}</option>
+                    </select>
+                </div>
+
+                <!-- Department -->
+                <div class="col-md-6 mb-3">
+                    <label for="department" class="form-label">Department</label>
+                    <select id="department" formControlName="department" class="form-select"
+                        [ngClass]="{ 'is-invalid': submitted && f['department'].errors }">
+                        <option value="" disabled>Select department</option>
+                        <option *ngFor="let dept of departmentOptions" [value]="dept">{{ dept }}</option>
+                    </select>
+                    <div *ngIf="submitted && f['department'].errors" class="invalid-feedback">
+                        <div *ngIf="f['department'].errors['required']">Department is required</div>
+                    </div>
+                </div>
+
+                <!-- Designation -->
+                <div class="col-md-6 mb-3">
+                    <label for="designation" class="form-label">Designation</label>
+                    <select id="designation" formControlName="designation" class="form-select"
+                        [ngClass]="{ 'is-invalid': submitted && f['designation'].errors }">
+                        <option value="" disabled>Select designation</option>
+                        <option *ngFor="let desig of designationOptions" [value]="desig">{{ desig }}</option>
+                    </select>
+                    <div *ngIf="submitted && f['designation'].errors" class="invalid-feedback">
+                        <div *ngIf="f['designation'].errors['required']">Designation is required</div>
+                    </div>
+                </div>
+
+                <!-- Salary -->
+                <div class="col-md-6 mb-3">
+                    <label for="salary" class="form-label">Salary</label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" id="salary" formControlName="salary" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['salary'].errors }" placeholder="Enter salary">
+                    </div>
+                    <div *ngIf="submitted && f['salary'].errors" class="invalid-feedback d-block">
+                        <div *ngIf="f['salary'].errors['required']">Salary is required</div>
+                        <div *ngIf="f['salary'].errors['min']">Salary must be at least $1,000</div>
+                    </div>
+                </div>
+
+                <!-- Date of Joining -->
+                <div class="col-md-6 mb-3">
+                    <label for="date_of_joining" class="form-label">Date of Joining</label>
+                    <input type="date" id="date_of_joining" formControlName="date_of_joining" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['date_of_joining'].errors }">
+                    <div *ngIf="submitted && f['date_of_joining'].errors" class="invalid-feedback">
+                        <div *ngIf="f['date_of_joining'].errors['required']">Date of joining is required</div>
+                    </div>
+                </div>
+
+                <!-- Photo URL -->
+                <div class="col-md-12 mb-3">
+                    <label for="employee_photo" class="form-label">Photo URL (Optional)</label>
+                    <input type="text" id="employee_photo" formControlName="employee_photo" class="form-control"
+                        placeholder="Enter photo URL">
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-primary" [disabled]="loading">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                    Save Employee
+                </button>
+                <a routerLink="/employees" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
