@@ -13,7 +13,7 @@ export class GraphQLModule {
   constructor(apollo: Apollo, httpLink: HttpLink) {
     // Create an http link
     const link = httpLink.create({
-      uri: 'http://localhost:4000/graphql',
+      uri: 'https://comp3133-backend-741d7cc3b55a.herokuapp.com/graphql',
     });
 
     // Create an in-memory cache

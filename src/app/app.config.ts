@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
       const httpLink = inject(HttpLink);
  
       return {
-        link: httpLink.create({ uri: 'http://localhost:4000/graphql' }),
+        link: httpLink.create({ uri: 'https://comp3133-backend-741d7cc3b55a.herokuapp.com/graphql' }),
         cache: new InMemoryCache(),
         defaultOptions: {
           watchQuery: {
